@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="jquery.min.js"></script>
+</head>
+<body>
+<span>省份:</span><input type="text" id="province">
+<span>城市:</span><input type="text" id="city">
+<input type="button" value="search" id="button">
+<p class="now">
+    <span>实时温度:</span> <b></b><br>
+    <span>实时天气:</span> <b></b><br>
+    <span>实时风向:</span> <b></b>
+</p>
+<p class="today">
+    <span>今天温度:</span> <b></b><br>
+    <span>今天天气:</span> <b></b><br>
+    <span>今天风向:</span> <b></b>
+</p>
+<p class="tomorrow">
+    <span>明天温度:</span> <b></b><br>
+    <span>明天天气:</span> <b></b><br>
+    <span>明天风向:</span> <b></b>
+</p>
+<p class="datomorrow">
+    <span>后天温度:</span> <b></b><br>
+    <span>后天天气:</span> <b></b><br>
+    <span>后天风向:</span> <b></b>
+</p>
+<script>
+    $(function () {
+        $('#button').click(function () {
+            $.get('http://127.0.0.1:3000/',{
+                province:$('#province').val(),
+                city:$('#city').val()
+            },function (data) {
+                $('.now b:eq(0)').html(data.now.temperature+"℃");
+                $('.now b:eq(1)').html(data.now.weather);
+                $('.now b:eq(2)').html(data.now.wind);
+                $('.today b:eq(0)').html(data.today.temperature);
+                $('.today b:eq(1)').html(data.today.weather);
+                $('.today b:eq(2)').html(data.today.wind);
+                $('.tomorrow b:eq(0)').html(data.tomorrow.temperature);
+                $('.tomorrow b:eq(1)').html(data.tomorrow.weather);
+                $('.tomorrow b:eq(2)').html(data.tomorrow.wind);
+                $('.datomorrow b:eq(0)').html(data.DATomorrow.temperature);
+                $('.datomorrow b:eq(1)').html(data.DATomorrow.weather);
+                $('.datomorrow b:eq(2)').html(data.DATomorrow.wind);
+            },'json')
+        })
+    })
+</script>
+</body>
+</html>
